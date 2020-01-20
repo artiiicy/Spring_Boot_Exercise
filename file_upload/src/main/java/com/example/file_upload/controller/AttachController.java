@@ -88,6 +88,28 @@ public class AttachController {
                     }
                 }
             }
+
+            zipFile.close();
+
+            // 압축파일(.zip) 지우기
+            File file = new File("C:/attachments"); // 존재하는 폴더 가져오기
+
+            if(file.exists()) { // file이 존재한다면 zip 파일이 있는지 확인
+                File[] files = file.listFiles();
+
+                for(int i = 0; i < files.length; i++) {
+                    String filename = files[i].getName();
+                    String extension = FilenameUtils.getExtension(filename);
+
+                    if(extension.equals("zip")){
+                        if(files[i].delete())
+                            log.info("file delete success");
+                        else
+                            log.info("file delete failure");
+                    }
+                }
+            }
+
         }
         else
         {
